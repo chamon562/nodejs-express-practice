@@ -25,3 +25,13 @@ https://nodejs.org/en/[https://nodejs.org/en/]
 - npm install express
 - Express is a web framework for Node.js. This will help us create different routes for api.
 - testing endpoints on postman
+## using import instead 
+- before had to do const express = require("express")
+- now by adding "type": "module: in package.json it allows to be able to use import
+    ```json
+     "name": "express-restapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+    ```
