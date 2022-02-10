@@ -35,3 +35,13 @@ https://nodejs.org/en/[https://nodejs.org/en/]
   "main": "server.js",
   "type": "module",
     ```
+# Fix node_modules not to show in git
+1. How it started. I created a github repo and started adding node packages I believe which an article on stack overflow said " the node_modules directory is already tracked as part of the repository, the .gitignore rule will not apply to it. You need to untrack the directory from git using:"
+    ```zsh 
+    git rm -r --cached node_modules
+    git commit -m "removing node_modules"
+    ```
+"After this, the .gitignore rule will ignore the directory away.
+
+Note that this will remove the directory node_modules from your other repos once you pull the changes in. Only the original repo where you made that commit will still have the node_modules folder there."
+- i git add . and check the git status and saw that node_modules was no longer there. 

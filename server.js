@@ -7,6 +7,9 @@ import bodyParser from 'body-parser'
 const app = express();
 
 const PORT = 8000;
+// initialize bodyParser middleware
+// this is saying will be using json data in the application
+app.use(bodyParser.json())
 
 app.listen(PORT, () => {
   console.log(`🟢 We live on port: ${PORT}, stay fresh🍃 `);
