@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import { v4 as uuidv4 } from "uuid";
-const users = [
+let users = [
   //   {
   //     firstName: "Dara",
   //     lastName: "Heng",
@@ -35,6 +35,7 @@ router.post("/", (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     age: req.body.age,
+    id: req.params.id
   };
   //   when creating the user add that id with uuid
   //   const userId = uuidv4();
@@ -79,18 +80,38 @@ router.get("/:id", (req, res) => {
   // const id = req.params.id
   // destructuring id
   const { id } = req.params;
-//   want to send user data for specific id
-// find a user in users database that has the same id
-// by using users.find((user)=> ) in the paramter we get each user and search if the user.id === id
-const findUser = users.find((user)=> user.id === id)
-// users.find((user) => {
-//     if (user.id === id) {
-//       res.send(user);
-//     } else {
-//       res.send("user not found");
-//     }
-//   });  
-res.send(findUser);
+  //   want to send user data for specific id
+  // find a user in users database that has the same id
+  // by using users.find((user)=> ) in the paramter we get each user and search if the user.id === id
+  const findUser = users.find((user) => user.id === id);
+  // users.find((user) => {
+  //     if (user.id === id) {
+  //       res.send(user);
+  //     } else {
+  //       res.send("user not found");
+  //     }
+  //   });
+  res.send(findUser);
+});
+
+// DELETE user only specified from id param
+router.delete("/:id", (req, res) => {
+  // get id from reqquest.params
+  // and remove element from array using filter function
+  // filter works where whatever that after the arrow function returned is true
+  // it will keep that user in the array, but if its false then it removes it from the aray
+  // want to keep all users except the one whos id is equal to the id
+  // that I have here const {id}= req.params
+  let { id } = req.params;
+  // if the user.id does not equal the id it will be false because they are equal
+  // want false so it can delete
+  // the reason that is done because for example
+  // say if user.id is user1 id is 111 and that that doesnt equal its user id 111
+  // it will be false so delete
+  // but if its another user like user2 whos user id is 222 and does not equal the id 111 then its true saving it.
+  users = users.filter((user) => user.id != id);
+  // send some information to the user to confirm they have been deleted
+  res.send(`User account ${id} account has been deleted.`);
 });
 // module.exports = router
 export default router;
