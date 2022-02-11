@@ -25,6 +25,10 @@ https://nodejs.org/en/[https://nodejs.org/en/]
 - npm install express
 - Express is a web framework for Node.js. This will help us create different routes for api.
 - testing endpoints on postman
+## install nodemon
+- npm i --save-dev nodemon
+- doing -dev when push or publish application no one will run my server, only installing for own developing purposes. i have it installed globaly and this will not be used later.
+- creating own start script in the package.json. Instead of having "test": "blahblah" replace with "start": "nodemon server.js". Can now start using nodemon or npm start in terminal.
 ## using import instead 
 - before had to do const express = require("express")
 - now by adding "type": "module: in package.json it allows to be able to use import
@@ -45,3 +49,13 @@ https://nodejs.org/en/[https://nodejs.org/en/]
 
 Note that this will remove the directory node_modules from your other repos once you pull the changes in. Only the original repo where you made that commit will still have the node_modules folder there."
 - i git add . and check the git status and saw that node_modules was no longer there. 
+# JSON
+- json stands for javascript object notation. it is common form for sending and requesting data through a rest api.
+- In json each property and value must be wrapped with quotes
+```json
+{
+    "name": "bob",
+    "email": "bob@bob.com"
+}
+```
+
