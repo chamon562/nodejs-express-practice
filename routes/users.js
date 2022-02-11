@@ -2,16 +2,16 @@ import express from "express";
 const router = express.Router();
 import { v4 as uuidv4 } from "uuid";
 const users = [
-  {
-    firstName: "Dara",
-    lastName: "Heng",
-    age: 25,
-  },
-  {
-    firstName: "Sokha",
-    lastName: "Sang",
-    age: 22,
-  },
+  //   {
+  //     firstName: "Dara",
+  //     lastName: "Heng",
+  //     age: 25,
+  //   },
+  //   {
+  //     firstName: "Sokha",
+  //     lastName: "Sang",
+  //     age: 22,
+  //   },
 ];
 // if going to localhost:8000/users will say cannot get /users
 // because in server.js added /users to all routes for the users.js
@@ -69,9 +69,28 @@ router.post("/", (req, res) => {
 });
 
 // installing uuid for uniq ids to be used later
+// localhost:8000/users/whateverId12331 is stored in req.params
+// it is the paramter to the function and the only paramter
+// have is /:id, will get an object {id: whateverId12331}
+// need that id to access the data of the users id speified
+// in the url path localhost:8000/users/whateverId12331
 router.get("/:id", (req, res) => {
   console.log(req.params);
-  res.send("user id");
+  // const id = req.params.id
+  // destructuring id
+  const { id } = req.params;
+//   want to send user data for specific id
+// find a user in users database that has the same id
+// by using users.find((user)=> ) in the paramter we get each user and search if the user.id === id
+const findUser = users.find((user)=> user.id === id)
+// users.find((user) => {
+//     if (user.id === id) {
+//       res.send(user);
+//     } else {
+//       res.send("user not found");
+//     }
+//   });  
+res.send(findUser);
 });
 // module.exports = router
 export default router;
