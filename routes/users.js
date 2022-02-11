@@ -35,7 +35,7 @@ router.post("/", (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     age: req.body.age,
-    id: req.params.id
+    id: req.params.id,
   };
   //   when creating the user add that id with uuid
   //   const userId = uuidv4();
@@ -113,5 +113,52 @@ router.delete("/:id", (req, res) => {
   // send some information to the user to confirm they have been deleted
   res.send(`User account ${id} account has been deleted.`);
 });
+
+// using PATCH method, PATCH is used when trying to partially modify something
+// the PUT method completely overrides something, if wanting to change everything in user
+// then use put method, but to apply a partial modification, if wanting to change age
+// or name or both then can use PATCH
 // module.exports = router
+// patch takes in the dynamic /:id
+router.patch("/:id", (req, res) => {
+  // take in the id
+  const { id } = req.params;
+  //   can receive these elements from the req.body and change it
+  // find the user to be updated
+  // array.find() goes through alot of users or elements in the array
+  // and the first one that matches it returns it.
+  // so need to match user.id to the id coming from req.params
+  const user = users.find((user) => user.id === id);
+  // in postman change name to bo
+  // now that have that will have some data through the req.body
+  //   using the query paramter /:id to get the id, will also
+  // need something from the client side, currently postman
+  const { firstName, lastName, age } = req.body;
+  //   with this can now change one or many properties of the user
+  if (firstName) {
+    // set user.firstName which is the user found above
+    // to be firstName can do same for lastName and age
+    user.firstName = firstName;
+  }
+  //   can do on single line if statement
+  //   if(firstName) user.firstName = firstName
+  if (lastName) {
+    user.lastName = lastName;
+  }
+  if (age) {
+    user.age = age;
+  }
+  res.send(`User ${id} has been updated`);
+  //   output "firstName": "Frodo",
+  // "lastName": "Heng",
+  // "age": 27,
+  // "id": "713adb42-6791-4f2f-961a-cd23ec1affee"
+  // }
+});
+// receiving a request paramter "/:id" which is {id} = req.params
+// that id indicates which user to update in the const user = users.find((user) => user.id ===id)
+// then take all the elements from req.body which is the {firstName, lastName, age}
+// that is sent from frontend or client, in my case postman
+// then if have the value if(firstName) that want to replace something with
+// then change user.firstName with the firstName
 export default router;
